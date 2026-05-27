@@ -9,95 +9,93 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;height:100vh;display:flex;flex-direction:column}
-#header{background:#1565C0;color:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-#header h1{font-size:15px;font-weight:500}
-#hbtns{display:flex;gap:6px;align-items:center}
-.hbtn{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer}
+#header{background:#1565C0;color:#fff;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;flex-wrap:wrap}
+#header h1{font-size:14px;font-weight:500;white-space:nowrap}
+#hright{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+#stats{display:flex;gap:8px;font-size:12px;background:rgba(255,255,255,.15);padding:3px 8px;border-radius:6px}
+#counter{font-size:12px;background:rgba(255,255,255,.15);padding:3px 8px;border-radius:6px;white-space:nowrap}
+.hbtn{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:6px;padding:3px 8px;font-size:12px;cursor:pointer}
 .hbtn:hover{background:rgba(255,255,255,.3)}
-#stats{display:flex;gap:10px;font-size:13px}
-#filtros{display:flex;gap:6px;padding:8px 14px;background:#fff;border-bottom:1px solid #eee;flex-wrap:wrap;flex-shrink:0;align-items:center}
-.f-btn{background:#f0f4ff;border:1px solid #c5d3f0;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;transition:all .15s}
+#filtros{display:flex;gap:5px;padding:6px 12px;background:#fff;border-bottom:1px solid #eee;flex-wrap:wrap;flex-shrink:0;align-items:center}
+.f-btn{background:#f0f4ff;border:1px solid #c5d3f0;border-radius:5px;padding:3px 9px;font-size:11px;cursor:pointer;transition:all .15s}
 .f-btn.active{background:#1565C0;color:#fff;border-color:#1565C0}
 #map-wrap{flex:1;position:relative;min-height:0}
 #map{width:100%;height:100%}
-#panel{background:#fff;border-top:1px solid #ddd;padding:10px 14px;flex-shrink:0}
-#calle-info{font-size:13px;color:#555;margin-bottom:8px;text-align:center}
-#opciones{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
-.opcion{background:#f0f4ff;border:1px solid #c5d3f0;border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer;text-align:left;transition:all .15s;line-height:1.3}
+#panel{background:#fff;border-top:1px solid #ddd;padding:8px 12px;flex-shrink:0}
+#calle-info{font-size:12px;color:#555;margin-bottom:7px;text-align:center}
+#opciones{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px}
+.opcion{background:#f0f4ff;border:1px solid #c5d3f0;border-radius:7px;padding:7px 9px;font-size:12px;cursor:pointer;text-align:left;transition:all .15s;line-height:1.3}
 .opcion:hover:not(:disabled){background:#dce8ff}
 .opcion.correcto{background:#e8f5e9;border-color:#43a047;color:#1b5e20;font-weight:500}
 .opcion.incorrecto{background:#ffebee;border-color:#e53935;color:#b71c1c}
 .opcion.mostrar{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
 .opcion:disabled{cursor:default}
-#feedback{text-align:center;font-size:13px;font-weight:500;min-height:18px;margin-bottom:6px}
+#feedback{text-align:center;font-size:12px;font-weight:500;min-height:16px;margin-bottom:5px}
 #feedback.ok{color:#2e7d32}
 #feedback.ko{color:#c62828}
-#btn-sig{width:100%;background:#1565C0;color:#fff;border:none;border-radius:8px;padding:9px;font-size:13px;font-weight:500;cursor:pointer;display:none}
+#btn-sig{width:100%;background:#1565C0;color:#fff;border:none;border-radius:7px;padding:8px;font-size:13px;font-weight:500;cursor:pointer;display:none}
 #btn-sig:hover{background:#0d47a1}
-#loading-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:10px;padding:16px 24px;box-shadow:0 4px 20px rgba(0,0,0,.15);text-align:center;z-index:1000;font-size:13px;color:#555;display:none}
+#loading-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:10px;padding:14px 22px;box-shadow:0 4px 20px rgba(0,0,0,.15);text-align:center;z-index:1000;font-size:13px;color:#555;display:none}
 #loading-overlay.show{display:block}
-.tipo-badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;margin-right:5px;font-weight:500}
+.tipo-badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;margin-right:4px;font-weight:500}
 .del{background:#E3F2FD;color:#0D47A1}
 .lon{background:#E8F5E9;color:#1B5E20}
 .tra{background:#FFF3E0;color:#E65100}
-
-/* MODAL BASE */
 .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:3000;align-items:center;justify-content:center}
 .modal.show{display:flex}
-.modal-box{background:#fff;border-radius:12px;padding:20px;width:90%;max-width:440px;max-height:85vh;overflow-y:auto}
-.modal-box h2{font-size:15px;margin-bottom:12px;color:#1565C0}
-.modal-close{width:100%;margin-top:10px;background:#eee;border:none;border-radius:8px;padding:8px;cursor:pointer;font-size:13px}
-.modal-close:hover{background:#ddd}
-
-/* HISTORIAL */
-.hist-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.modal-box{background:#fff;border-radius:12px;padding:18px;width:92%;max-width:460px;max-height:85vh;overflow-y:auto}
+.modal-box h2{font-size:14px;margin-bottom:10px;color:#1565C0}
+.modal-close{width:100%;margin-top:10px;background:#eee;border:none;border-radius:7px;padding:7px;cursor:pointer;font-size:12px}
+.hist-item{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
 .hist-cnt{font-weight:600;color:#c62828}
-
-/* NO ENCONTRADA popup */
-#notfound-bar{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 12px;margin-bottom:8px;display:none}
-#notfound-bar p{font-size:12px;color:#795548;margin-bottom:8px}
-#notfound-bar .row{display:flex;gap:6px}
-#notfound-input{flex:1;border:1px solid #ddd;border-radius:6px;padding:6px 8px;font-size:12px}
-#notfound-probar{background:#1565C0;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;white-space:nowrap}
-#notfound-skip{background:#eee;border:none;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer}
-#notfound-status{font-size:11px;margin-top:6px;color:#555}
-
-/* GESTIÓN panel */
-#gestion-panel .modal-box{max-width:500px}
-.gestion-sec{margin-bottom:16px}
-.gestion-sec h3{font-size:13px;font-weight:600;color:#333;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:4px}
-.gestion-row{display:flex;gap:6px;margin-bottom:6px}
-.gestion-input{flex:1;border:1px solid #ddd;border-radius:6px;padding:6px 8px;font-size:12px}
-.gestion-btn{background:#1565C0;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;white-space:nowrap}
-.gestion-btn.red{background:#c62828}
-.gestion-btn:hover{opacity:.85}
-.calle-item{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:12px}
-.calle-item .osm{color:#888;font-size:11px}
-.calle-del-btn{background:none;border:none;color:#c62828;cursor:pointer;font-size:14px;padding:0 4px}
-#gestion-lista{max-height:200px;overflow-y:auto}
+#notfound-bar{background:#fff8e1;border:1px solid #ffe082;border-radius:7px;padding:9px 11px;margin-bottom:7px;display:none}
+#notfound-bar p{font-size:11px;color:#795548;margin-bottom:7px}
+#notfound-bar .nfrow{display:flex;gap:5px}
+#notfound-input{flex:1;border:1px solid #ddd;border-radius:5px;padding:5px 7px;font-size:11px}
+.nfbtn{border:none;border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer}
+.nfbtn.blue{background:#1565C0;color:#fff}
+.nfbtn.grey{background:#eee;color:#333}
+#notfound-status{font-size:10px;margin-top:5px;color:#555}
+.gestion-sec{margin-bottom:14px}
+.gestion-sec h3{font-size:12px;font-weight:600;color:#333;margin-bottom:7px;border-bottom:1px solid #eee;padding-bottom:3px}
+.gestion-row{display:flex;gap:5px;margin-bottom:5px}
+.gestion-input{flex:1;border:1px solid #ddd;border-radius:5px;padding:5px 7px;font-size:11px}
+.gestion-btn{background:#1565C0;color:#fff;border:none;border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer;white-space:nowrap}
+.calle-item{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f5f5f5;font-size:11px}
+.calle-item .osm{color:#888;font-size:10px}
+.calle-del-btn{background:none;border:none;color:#c62828;cursor:pointer;font-size:13px;padding:0 3px}
+#pending-panel{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:3000;align-items:center;justify-content:center}
+#pending-panel.show{display:flex}
+#pending-box{background:#fff;border-radius:12px;padding:18px;width:92%;max-width:460px;max-height:85vh;overflow-y:auto}
+#pending-box h2{font-size:14px;margin-bottom:10px;color:#1565C0}
+.pend-item{padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px;display:flex;gap:6px;align-items:center}
+.pend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pend-dot.ok{background:#2e7d32}
+.pend-dot.ko{background:#c62828}
+.pend-dot.pending{background:#bbb}
 </style>
 </head>
 <body>
 
 <div id="header">
-  <h1>Quiz Callejero — Parque Norte</h1>
-  <div id="hbtns">
-    <div id="stats">
-      <span>✓ <b id="s-ok">0</b></span>
-      <span>✗ <b id="s-fail">0</b></span>
-      <span><b id="s-pct">—</b></span>
-    </div>
-    <button class="hbtn" onclick="abrirHistorial()">📋 Fallos</button>
+  <h1>🗺 Quiz Callejero — Parque Norte</h1>
+  <div id="hright">
+    <div id="counter">📍 <span id="cnt-done">0</span>/<span id="cnt-total">—</span></div>
+    <div id="stats">✓<b id="s-ok">0</b> ✗<b id="s-fail">0</b> <b id="s-pct">—</b></div>
+    <button class="hbtn" onclick="abrirPendientes()">📋 Pendientes</button>
+    <button class="hbtn" onclick="abrirHistorial()">❌ Fallos</button>
     <button class="hbtn" onclick="abrirGestion()">⚙ Calles</button>
   </div>
 </div>
 
 <div id="filtros">
-  <span style="font-size:12px;color:#666">Tipo:</span>
+  <span style="font-size:11px;color:#666">Tipo:</span>
   <button class="f-btn active" onclick="setTipo('all',this)">Todas</button>
   <button class="f-btn" onclick="setTipo('del',this)">Delimitación</button>
   <button class="f-btn" onclick="setTipo('lon',this)">Longitudinal</button>
   <button class="f-btn" onclick="setTipo('tra',this)">Transversal</button>
+  <button class="f-btn" onclick="setTipo('osm',this)" id="btn-osm" style="display:none">OSM cargadas</button>
+  <button class="f-btn" style="margin-left:auto;background:#e8f5e9;border-color:#a5d6a7;color:#1b5e20" onclick="cargarCallesOSM()">⬇ Cargar calles OSM</button>
 </div>
 
 <div id="map-wrap">
@@ -108,11 +106,11 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;height:10
 <div id="panel">
   <div id="calle-info">Iniciando...</div>
   <div id="notfound-bar">
-    <p>⚠ No se ha encontrado esta calle en OpenStreetMap. Escribe el nombre exacto en valenciano/OSM para probar:</p>
-    <div class="row">
+    <p>⚠ No encontrada en OSM. Escribe el nombre exacto en valenciano:</p>
+    <div class="nfrow">
       <input id="notfound-input" type="text" placeholder="Ej: Avinguda del Port" />
-      <button id="notfound-probar" onclick="probarNombreOSM()">Probar</button>
-      <button id="notfound-skip" onclick="saltarCalle()">Saltar</button>
+      <button class="nfbtn blue" onclick="probarNombreOSM()">Probar</button>
+      <button class="nfbtn grey" onclick="saltarCalle()">Saltar</button>
     </div>
     <div id="notfound-status"></div>
   </div>
@@ -121,53 +119,71 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a;height:10
   <button id="btn-sig" onclick="siguiente()">Siguiente →</button>
 </div>
 
-<!-- HISTORIAL MODAL -->
-<div class="modal" id="historial-modal" onclick="cerrarModal('historial-modal',event)">
-  <div class="modal-box">
-    <h2>📋 Historial de fallos</h2>
-    <div id="historial-lista"></div>
-    <button class="modal-close" onclick="cerrarModal('historial-modal')">Cerrar</button>
+<!-- PENDIENTES -->
+<div id="pending-panel" onclick="if(event.target===this)this.classList.remove('show')">
+  <div id="pending-box">
+    <h2>📋 Estado de calles</h2>
+    <div style="display:flex;gap:8px;margin-bottom:10px;font-size:11px">
+      <span><span class="pend-dot ok" style="display:inline-block"></span> Acertada</span>
+      <span><span class="pend-dot ko" style="display:inline-block"></span> Fallada</span>
+      <span><span class="pend-dot pending" style="display:inline-block"></span> Pendiente</span>
+    </div>
+    <div id="pending-lista"></div>
+    <button class="modal-close" onclick="document.getElementById('pending-panel').classList.remove('show')">Cerrar</button>
   </div>
 </div>
 
-<!-- GESTIÓN MODAL -->
-<div class="modal" id="gestion-panel" onclick="cerrarModal('gestion-panel',event)">
+<!-- HISTORIAL -->
+<div class="modal" id="historial-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal-box">
+    <h2>❌ Historial de fallos</h2>
+    <div id="historial-lista"></div>
+    <button class="modal-close" onclick="document.getElementById('historial-modal').classList.remove('show')">Cerrar</button>
+  </div>
+</div>
+
+<!-- GESTIÓN -->
+<div class="modal" id="gestion-panel" onclick="if(event.target===this)this.classList.remove('show')">
   <div class="modal-box">
     <h2>⚙ Gestión de calles</h2>
-
     <div class="gestion-sec">
       <h3>Añadir calle nueva</h3>
       <div class="gestion-row">
         <input class="gestion-input" id="g-nombre" placeholder="Nombre (ej: C Nueva Calle)" />
-        <select class="gestion-input" id="g-tipo" style="max-width:120px">
+        <select class="gestion-input" id="g-tipo" style="max-width:110px">
           <option value="del">Delimitación</option>
           <option value="lon">Longitudinal</option>
           <option value="tra">Transversal</option>
+          <option value="osm">OSM</option>
         </select>
       </div>
       <div class="gestion-row">
-        <input class="gestion-input" id="g-osm" placeholder="Nombre OSM (ej: Carrer de la Nova)" />
+        <input class="gestion-input" id="g-osm" placeholder="Nombre OSM (busca en openstreetmap.org)" />
         <button class="gestion-btn" onclick="añadirCalle()">Añadir</button>
       </div>
-      <p style="font-size:11px;color:#888;margin-top:4px">Busca el nombre en <a href="https://www.openstreetmap.org" target="_blank">openstreetmap.org</a> haciendo clic en la calle</p>
+      <p style="font-size:10px;color:#888;margin-top:3px">Haz clic en la calle en <a href="https://www.openstreetmap.org" target="_blank">openstreetmap.org</a> para ver su nombre exacto</p>
     </div>
-
     <div class="gestion-sec">
-      <h3>Calles añadidas / corregidas</h3>
-      <div id="gestion-lista"></div>
+      <h3>Calles añadidas (<span id="g-count">0</span>)</h3>
+      <div id="gestion-lista" style="max-height:180px;overflow-y:auto"></div>
     </div>
-
     <div class="gestion-sec">
-      <h3>Calles no encontradas guardadas</h3>
-      <div id="gestion-notfound"></div>
+      <h3>Nombres OSM corregidos</h3>
+      <div id="gestion-notfound" style="max-height:120px;overflow-y:auto"></div>
     </div>
-
-    <button class="modal-close" onclick="cerrarModal('gestion-panel')">Cerrar</button>
+    <button class="modal-close" onclick="document.getElementById('gestion-panel').classList.remove('show')">Cerrar</button>
   </div>
 </div>
 
 <script>
-// ---- DATOS BASE ----
+
+// === POLÍGONO NORTE (para mostrar límite en mapa y query OSM) ===
+const NORTE_POLY_COORDS = [[39.4893119, -0.3517755], [39.4884629, -0.3563785], [39.4806759, -0.3753145], [39.4738749, -0.3758365], [39.4703729, -0.3757895], [39.4712769, -0.3669865], [39.4686469, -0.3606945], [39.4654979, -0.3512035], [39.4622049, -0.3401365], [39.4602489, -0.3312965], [39.4615909, -0.3293515], [39.4616849, -0.3287085], [39.4619369, -0.3259675], [39.4614959, -0.3252295], [39.4604769, -0.3244085], [39.4583469, -0.3253965], [39.4578999, -0.3251465], [39.4579829, -0.3244345], [39.4550349, -0.3208395], [39.4487649, -0.3161765], [39.4473719, -0.3151845], [39.4470219, -0.3144315], [39.4478999, -0.3142585], [39.4489769, -0.3136705], [39.4508029, -0.3127755], [39.4501669, -0.3121725], [39.4499249, -0.3110665], [39.4498999, -0.3103585], [39.4508079, -0.3098705], [39.4505479, -0.3083925], [39.4491869, -0.3079685], [39.4479969, -0.3087005], [39.4476159, -0.3101445], [39.4461399, -0.3109795], [39.4446549, -0.3118155], [39.4431779, -0.3126385], [39.4426709, -0.3121355], [39.4420849, -0.3120995], [39.4418299, -0.3131555], [39.4420049, -0.3113715], [39.4426779, -0.3100905], [39.4440479, -0.3093515], [39.4454439, -0.3085545], [39.4468099, -0.3076425], [39.4470969, -0.3068295], [39.4470979, -0.3049125], [39.4467729, -0.3037275], [39.4456869, -0.3039205], [39.4455509, -0.3038565], [39.4448459, -0.3037675], [39.4446649, -0.3025895], [39.4429629, -0.3025965], [39.4415339, -0.3027455], [39.4399889, -0.3025605], [39.4381469, -0.3027365], [39.4363869, -0.3026065], [39.4345859, -0.3026185], [39.4337879, -0.3023825], [39.4352489, -0.3021045], [39.4368159, -0.3020675], [39.4384739, -0.3020735], [39.4401479, -0.3020315], [39.4417779, -0.3020155], [39.4434089, -0.3020215], [39.4450659, -0.3019815], [39.4467319, -0.3019865], [39.4482469, -0.3020095], [39.4493579, -0.3021645], [39.4497799, -0.3036585], [39.4503159, -0.3053695], [39.4508979, -0.3071595], [39.4510659, -0.3089655], [39.4510599, -0.3110225], [39.4607169, -0.3184135], [39.4620729, -0.3193845], [39.4630479, -0.3202655], [39.4642719, -0.3213575], [39.4672699, -0.3216835], [39.4698659, -0.3221075], [39.4725439, -0.3222375], [39.4745569, -0.3224895], [39.4780149, -0.3227245], [39.4799919, -0.3228925], [39.4826979, -0.3230445], [39.4845049, -0.3240565], [39.4864059, -0.3318895], [39.4859109, -0.3373845], [39.4877549, -0.3443475], [39.4893119, -0.3517755]];
+const NORTE_POLY_COORDS2 = [[39.504023, -0.366286], [39.504462, -0.367328], [39.505667, -0.368469], [39.506921, -0.369317], [39.507739, -0.369658], [39.508902, -0.371289], [39.509601, -0.371902], [39.509701, -0.371143], [39.51015, -0.369497], [39.511282, -0.367757], [39.512454, -0.366596], [39.513268, -0.367938], [39.513981, -0.368795], [39.515384, -0.36987], [39.518016, -0.371538], [39.521277, -0.372316], [39.516433, -0.374343], [39.51218, -0.375519], [39.506287, -0.377149], [39.502296, -0.379984], [39.49732, -0.381276], [39.493598, -0.379627], [39.492009, -0.373982], [39.490019, -0.375427], [39.487374, -0.377348], [39.484771, -0.378595], [39.482129, -0.379148], [39.481275, -0.37657], [39.480785, -0.373809], [39.485161, -0.370963], [39.483793, -0.362774], [39.488467, -0.3564], [39.48931, -0.355958], [39.490197, -0.354879], [39.492462, -0.355422], [39.493699, -0.356723], [39.494685, -0.357721], [39.495152, -0.358052], [39.497367, -0.356398], [39.498271, -0.356945], [39.500078, -0.355214], [39.500648, -0.356099], [39.5014, -0.356269], [39.502093, -0.356242], [39.503612, -0.360046], [39.502291, -0.36141], [39.503279, -0.363268], [39.503879, -0.364687], [39.503975, -0.365742]];
+const NORTE_POLY_STR = `39.4893119 -0.3517755 39.4884629 -0.3563785 39.4806759 -0.3753145 39.4738749 -0.3758365 39.4703729 -0.3757895 39.4712769 -0.3669865 39.4686469 -0.3606945 39.4654979 -0.3512035 39.4622049 -0.3401365 39.4602489 -0.3312965 39.4615909 -0.3293515 39.4616849 -0.3287085 39.4619369 -0.3259675 39.4614959 -0.3252295 39.4604769 -0.3244085 39.4583469 -0.3253965 39.4578999 -0.3251465 39.4579829 -0.3244345 39.4550349 -0.3208395 39.4487649 -0.3161765 39.4473719 -0.3151845 39.4470219 -0.3144315 39.4478999 -0.3142585 39.4489769 -0.3136705 39.4508029 -0.3127755 39.4501669 -0.3121725 39.4499249 -0.3110665 39.4498999 -0.3103585 39.4508079 -0.3098705 39.4505479 -0.3083925 39.4491869 -0.3079685 39.4479969 -0.3087005 39.4476159 -0.3101445 39.4461399 -0.3109795 39.4446549 -0.3118155 39.4431779 -0.3126385 39.4426709 -0.3121355 39.4420849 -0.3120995 39.4418299 -0.3131555 39.4420049 -0.3113715 39.4426779 -0.3100905 39.4440479 -0.3093515 39.4454439 -0.3085545 39.4468099 -0.3076425 39.4470969 -0.3068295 39.4470979 -0.3049125 39.4467729 -0.3037275 39.4456869 -0.3039205 39.4455509 -0.3038565 39.4448459 -0.3037675 39.4446649 -0.3025895 39.4429629 -0.3025965 39.4415339 -0.3027455 39.4399889 -0.3025605 39.4381469 -0.3027365 39.4363869 -0.3026065 39.4345859 -0.3026185 39.4337879 -0.3023825 39.4352489 -0.3021045 39.4368159 -0.3020675 39.4384739 -0.3020735 39.4401479 -0.3020315 39.4417779 -0.3020155 39.4434089 -0.3020215 39.4450659 -0.3019815 39.4467319 -0.3019865 39.4482469 -0.3020095 39.4493579 -0.3021645 39.4497799 -0.3036585 39.4503159 -0.3053695 39.4508979 -0.3071595 39.4510659 -0.3089655 39.4510599 -0.3110225 39.4607169 -0.3184135 39.4620729 -0.3193845 39.4630479 -0.3202655 39.4642719 -0.3213575 39.4672699 -0.3216835 39.4698659 -0.3221075 39.4725439 -0.3222375 39.4745569 -0.3224895 39.4780149 -0.3227245 39.4799919 -0.3228925 39.4826979 -0.3230445 39.4845049 -0.3240565 39.4864059 -0.3318895 39.4859109 -0.3373845 39.4877549 -0.3443475 39.4893119 -0.3517755`;
+const NORTE_POLY_STR2 = `39.504023 -0.366286 39.504462 -0.367328 39.505667 -0.368469 39.506921 -0.369317 39.507739 -0.369658 39.508902 -0.371289 39.509601 -0.371902 39.509701 -0.371143 39.51015 -0.369497 39.511282 -0.367757 39.512454 -0.366596 39.513268 -0.367938 39.513981 -0.368795 39.515384 -0.36987 39.518016 -0.371538 39.521277 -0.372316 39.516433 -0.374343 39.51218 -0.375519 39.506287 -0.377149 39.502296 -0.379984 39.49732 -0.381276 39.493598 -0.379627 39.492009 -0.373982 39.490019 -0.375427 39.487374 -0.377348 39.484771 -0.378595 39.482129 -0.379148 39.481275 -0.37657 39.480785 -0.373809 39.485161 -0.370963 39.483793 -0.362774 39.488467 -0.3564 39.48931 -0.355958 39.490197 -0.354879 39.492462 -0.355422 39.493699 -0.356723 39.494685 -0.357721 39.495152 -0.358052 39.497367 -0.356398 39.498271 -0.356945 39.500078 -0.355214 39.500648 -0.356099 39.5014 -0.356269 39.502093 -0.356242 39.503612 -0.360046 39.502291 -0.36141 39.503279 -0.363268 39.503879 -0.364687 39.503975 -0.365742`;
+
+// === CALLES BASE ===
 const CALLES_BASE = [
   {n:"Av del Puerto",t:"del"},{n:"Paseo Alameda",t:"del"},{n:"Av Navarro Reverter",t:"del"},
   {n:"C Don Juan de Austria",t:"del"},{n:"C Barcas",t:"del"},{n:"C Moratín",t:"del"},
@@ -186,84 +202,59 @@ const CALLES_BASE = [
 ];
 
 const OSM_BASE = {
-  "Av del Puerto":"Avinguda del Port",
-  "Paseo Alameda":"Passeig de l'Albereda",
-  "Av Navarro Reverter":"Avinguda de Navarro Reverter",
-  "C Don Juan de Austria":"Carrer de Joan d'Àustria",
-  "C Barcas":"Carrer de les Barques",
-  "C Moratín":"Carrer de Moratín",
-  "C San Vicente":"Carrer de Sant Vicent Màrtir",
-  "C Caballeros":"Carrer dels Cavallers",
-  "Av Guadalaviar":"Carrer de Guillem de Castro",
-  "C Llano de Zaidía":"Carrer del Pla de la Saïdia",
-  "Av Constitución":"Avinguda de la Constitució",
-  "Av Dr Peset Aleixandre":"Avinguda del Doctor Peset Aleixandre",
-  "Av Blasco Ibañez":"Avinguda de Blasco Ibáñez",
-  "C Serpis":"Carrer del Serpis",
-  "C Gorgos":"Carrer del Gorgos",
-  "Av Tarongers":"Avinguda dels Tarongers",
-  "C Rio Tajo":"Carrer del Riu Tajo",
-  "C Riu Bidasoa":"Carrer del Riu Bidasoa",
-  "Av Primado Reig":"Avinguda del Primat Reig",
-  "C Campoamor":"Carrer de Campoamor",
-  "C Mendizabal":"Carrer de Mendizábal",
-  "C Ramiro de Maeztu":"Carrer de Ramiro de Maeztu",
-  "C Eolo":"Carrer d'Eolo",
-  "C Caravaca":"Carrer de Caravaca",
-  "C Paz":"Carrer de la Pau",
-  "C Mar":"Carrer del Mar",
-  "C Nau":"Carrer de la Nau",
-  "Av Valladolid":"Avinguda de Valladolid",
-  "C Finlandia":"Carrer de Finlàndia",
-  "C Monforte":"Carrer de Montfort",
-  "Av Suecia":"Avinguda de Suècia",
-  "Av Aragón":"Avinguda d'Aragó",
-  "Av Cataluña":"Avinguda de Catalunya",
-  "Av Cardenal Benlloch":"Avinguda del Cardenal Benlloch",
-  "C Doctor Fleming":"Carrer del Doctor Fleming",
-  "C Sagunto":"Carrer de Sagunt",
-  "C Bilbao":"Carrer de Bilbao",
-  "C Chile":"Carrer de Xile",
-  "C Industria":"Carrer de la Indústria",
-  "C Clariano":"Carrer del Clariano",
-  "C Vinaroz":"Carrer de Vinaròs",
-  "C Alboraya":"Carrer d'Alboraia",
+  "Av del Puerto":"Avinguda del Port","Paseo Alameda":"Passeig de l'Albereda",
+  "Av Navarro Reverter":"Avinguda de Navarro Reverter","C Don Juan de Austria":"Carrer de Joan d'Àustria",
+  "C Barcas":"Carrer de les Barques","C Moratín":"Carrer de Moratín",
+  "C San Vicente":"Carrer de Sant Vicent Màrtir","C Caballeros":"Carrer dels Cavallers",
+  "Av Guadalaviar":"Carrer de Guillem de Castro","C Llano de Zaidía":"Carrer del Pla de la Saïdia",
+  "Av Constitución":"Avinguda de la Constitució","Av Dr Peset Aleixandre":"Avinguda del Doctor Peset Aleixandre",
+  "Av Blasco Ibañez":"Avinguda de Blasco Ibáñez","C Serpis":"Carrer del Serpis",
+  "C Gorgos":"Carrer del Gorgos","Av Tarongers":"Avinguda dels Tarongers",
+  "C Rio Tajo":"Carrer del Riu Tajo","C Riu Bidasoa":"Carrer del Riu Bidasoa",
+  "Av Primado Reig":"Avinguda del Primat Reig","C Campoamor":"Carrer de Campoamor",
+  "C Mendizabal":"Carrer de Mendizábal","C Ramiro de Maeztu":"Carrer de Ramiro de Maeztu",
+  "C Eolo":"Carrer d'Eolo","C Caravaca":"Carrer de Caravaca",
+  "C Paz":"Carrer de la Pau","C Mar":"Carrer del Mar","C Nau":"Carrer de la Nau",
+  "Av Valladolid":"Avinguda de Valladolid","C Finlandia":"Carrer de Finlàndia",
+  "C Monforte":"Carrer de Montfort","Av Suecia":"Avinguda de Suècia",
+  "Av Aragón":"Avinguda d'Aragó","Av Cataluña":"Avinguda de Catalunya",
+  "Av Cardenal Benlloch":"Avinguda del Cardenal Benlloch","C Doctor Fleming":"Carrer del Doctor Fleming",
+  "C Sagunto":"Carrer de Sagunt","C Bilbao":"Carrer de Bilbao","C Chile":"Carrer de Xile",
+  "C Industria":"Carrer de la Indústria","C Clariano":"Carrer del Clariano",
+  "C Vinaroz":"Carrer de Vinaròs","C Alboraya":"Carrer d'Alboraia",
 };
 
-// ---- STORAGE ----
-function loadStorage(){
-  try{
-    return {
-      extraCalles: JSON.parse(localStorage.getItem('quiz_extra_calles')||'[]'),
-      extraOsm: JSON.parse(localStorage.getItem('quiz_extra_osm')||'{}'),
-      notfoundSkip: JSON.parse(localStorage.getItem('quiz_notfound')||'[]'),
-      fallos: JSON.parse(localStorage.getItem('quiz_fallos')||'{}'),
-    };
-  }catch(e){return{extraCalles:[],extraOsm:{},notfoundSkip:[],fallos:{}};}
+// === STORAGE ===
+function loadS(){
+  try{ return {
+    extra: JSON.parse(localStorage.getItem('qv_extra')||'[]'),
+    osm: JSON.parse(localStorage.getItem('qv_osm')||'{}'  ),
+    fallos: JSON.parse(localStorage.getItem('qv_fallos')||'{}'  ),
+    respondidas: JSON.parse(localStorage.getItem('qv_resp')||'{}'  ),
+    osmCalles: JSON.parse(localStorage.getItem('qv_osmcalles')||'[]')
+  };} catch(e){ return {extra:[],osm:{},fallos:{},respondidas:{},osmCalles:[]}; }
 }
-function saveStorage(key,val){localStorage.setItem(key,JSON.stringify(val));}
-
-let S = loadStorage();
-let fallos = S.fallos;
+function saveS(k,v){ localStorage.setItem(k,JSON.stringify(v)); }
+let S = loadS();
 
 function getAllCalles(){
-  return [...CALLES_BASE, ...S.extraCalles];
+  const osmC = S.osmCalles.map(n=>({n,t:'osm'}));
+  return [...CALLES_BASE, ...S.extra, ...osmC];
 }
-function getOsmName(n){
-  return S.extraOsm[n] || OSM_BASE[n] || n;
-}
+function getOsmName(n){ return S.osm[n]||OSM_BASE[n]||n; }
 
-// ---- MAP ----
+// === MAP ===
 const map = L.map('map').setView([39.478,-0.376],14);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{
   attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19
 }).addTo(map);
 
-let currentLayer=null;
-let cola=[], idx=0, ok=0, fail=0, respondido=false, actual=null;
-let filtroTipo='all';
-let geoCache={};
-let permanentLayers=[];
+// Draw Norte boundary
+L.polygon(NORTE_POLY_COORDS,{color:'#1565C0',weight:2,fill:true,fillColor:'#1565C0',fillOpacity:0.05,dashArray:'5,5'}).addTo(map);
+L.polygon(NORTE_POLY_COORDS2,{color:'#1565C0',weight:2,fill:true,fillColor:'#1565C0',fillOpacity:0.05,dashArray:'5,5'}).addTo(map);
+
+let currentLayer=null, cola=[], idx=0, ok=0, fail=0, respondido=false, actual=null, filtroTipo='all';
+let geoCache={}, permanentLayers=[];
 
 function setTipo(t,btn){
   filtroTipo=t;
@@ -276,6 +267,14 @@ function buildCola(){
   const all=getAllCalles().filter(c=>filtroTipo==='all'||c.t===filtroTipo);
   cola=[...all].sort(()=>Math.random()-.5);
   idx=0;
+  updateCounter();
+}
+
+function updateCounter(){
+  const all=getAllCalles().filter(c=>filtroTipo==='all'||c.t===filtroTipo);
+  const done=all.filter(c=>S.respondidas[c.n]!==undefined).length;
+  document.getElementById('cnt-done').textContent=done;
+  document.getElementById('cnt-total').textContent=all.length;
 }
 
 function getLongestWay(elements){
@@ -296,8 +295,7 @@ function getLongestWay(elements){
 async function fetchOSM(osmName){
   const query=`[out:json][timeout:15];area["name"="València"]["admin_level"="8"]->.city;way["name"="${osmName}"](area.city);out geom;`;
   const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
-  const d=await r.json();
-  return d.elements||[];
+  return (await r.json()).elements||[];
 }
 
 async function getGeometry(nombre){
@@ -308,12 +306,10 @@ async function getGeometry(nombre){
     const best=getLongestWay(els);
     if(best&&best.geometry){
       const coords=best.geometry.map(p=>[p.lat,p.lon]);
-      geoCache[nombre]=coords;
-      return coords;
+      geoCache[nombre]=coords; return coords;
     }
   }catch(e){}
-  geoCache[nombre]=null;
-  return null;
+  geoCache[nombre]=null; return null;
 }
 
 function getOpciones(correcta){
@@ -321,19 +317,17 @@ function getOpciones(correcta){
   return [...pool.sort(()=>Math.random()-.5).slice(0,3),correcta].sort(()=>Math.random()-.5);
 }
 
-function mostrarLoading(show){
-  document.getElementById('loading-overlay').classList.toggle('show',show);
-}
+function mostrarLoading(show){ document.getElementById('loading-overlay').classList.toggle('show',show); }
 
 function addPermanentLabel(nombre,coords,correcto){
   if(!coords||!coords.length) return;
   const center=coords[Math.floor(coords.length/2)];
   const color=correcto?'#2e7d32':'#c62828';
-  permanentLayers.push(L.polyline(coords,{color,weight:3,opacity:0.55}).addTo(map));
+  permanentLayers.push(L.polyline(coords,{color,weight:3,opacity:.5}).addTo(map));
   permanentLayers.push(L.marker(center,{icon:L.divIcon({
     className:'',
-    html:`<div style="background:${color};color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:500;white-space:nowrap;opacity:.85">${nombre}</div>`,
-    iconAnchor:[0,10]
+    html:`<div style="background:${color};color:#fff;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:500;white-space:nowrap;opacity:.85">${nombre}</div>`,
+    iconAnchor:[0,8]
   })}).addTo(map));
 }
 
@@ -346,18 +340,15 @@ async function siguiente(){
   document.getElementById('notfound-status').textContent='';
   document.getElementById('notfound-input').value='';
   if(currentLayer){map.removeLayer(currentLayer);currentLayer=null;}
-
   if(idx>=cola.length) buildCola();
   if(!cola.length){document.getElementById('calle-info').innerHTML='Sin calles';return;}
-
   actual=cola[idx++];
   mostrarLoading(true);
   const coords=await getGeometry(actual.n);
   mostrarLoading(false);
-
-  const tl=actual.t==='del'?'Delimitación':actual.t==='lon'?'Longitudinal':'Transversal';
-  document.getElementById('calle-info').innerHTML=`<span class="tipo-badge ${actual.t}">${tl}</span><b>¿Qué calle es esta?</b>`;
-
+  const tl=actual.t==='del'?'Delimitación':actual.t==='lon'?'Longitudinal':actual.t==='tra'?'Transversal':'OSM';
+  const tc=actual.t==='del'?'del':actual.t==='lon'?'lon':'tra';
+  document.getElementById('calle-info').innerHTML=`<span class="tipo-badge ${tc}">${tl}</span><b>¿Qué calle es esta?</b>`;
   if(coords&&coords.length){
     currentLayer=L.polyline(coords,{color:'#1565C0',weight:6,opacity:.9}).addTo(map);
     map.fitBounds(currentLayer.getBounds(),{padding:[60,60],maxZoom:17});
@@ -365,7 +356,6 @@ async function siguiente(){
     document.getElementById('notfound-bar').style.display='block';
     document.getElementById('notfound-input').placeholder=`Nombre OSM para "${actual.n}"`;
   }
-
   const opts=getOpciones(actual);
   const div=document.getElementById('opciones');
   div.innerHTML='';
@@ -384,11 +374,13 @@ function responder(nombre,btnClicado,coords){
   if(correcto){ok++;btnClicado.className='opcion correcto';}
   else{
     fail++;
-    fallos[actual.n]=(fallos[actual.n]||0)+1;
-    saveStorage('quiz_fallos',fallos);
+    S.fallos[actual.n]=(S.fallos[actual.n]||0)+1;
+    saveS('qv_fallos',S.fallos);
     btnClicado.className='opcion incorrecto';
     document.querySelectorAll('.opcion').forEach(b=>{if(b.textContent===actual.n)b.className='opcion mostrar';});
   }
+  S.respondidas[actual.n]=correcto?'ok':'ko';
+  saveS('qv_resp',S.respondidas);
   document.querySelectorAll('.opcion').forEach(b=>b.disabled=true);
   const fb=document.getElementById('feedback');
   fb.textContent=correcto?'✓ Correcto':'✗ Era: '+actual.n;
@@ -400,9 +392,10 @@ function responder(nombre,btnClicado,coords){
   document.getElementById('notfound-bar').style.display='none';
   if(currentLayer) currentLayer.setStyle({color:correcto?'#2e7d32':'#c62828'});
   if(coords) addPermanentLabel(actual.n,coords,correcto);
+  updateCounter();
 }
 
-// ---- NO ENCONTRADA ----
+// === NO ENCONTRADA ===
 async function probarNombreOSM(){
   const input=document.getElementById('notfound-input').value.trim();
   if(!input) return;
@@ -412,9 +405,7 @@ async function probarNombreOSM(){
     const best=getLongestWay(els);
     if(best&&best.geometry){
       const coords=best.geometry.map(p=>[p.lat,p.lon]);
-      // Guardar mapeo
-      S.extraOsm[actual.n]=input;
-      saveStorage('quiz_extra_osm',S.extraOsm);
+      S.osm[actual.n]=input; saveS('qv_osm',S.osm);
       geoCache[actual.n]=coords;
       document.getElementById('notfound-status').textContent='✓ Encontrada y guardada';
       document.getElementById('notfound-bar').style.display='none';
@@ -422,11 +413,9 @@ async function probarNombreOSM(){
       currentLayer=L.polyline(coords,{color:'#1565C0',weight:6,opacity:.9}).addTo(map);
       map.fitBounds(currentLayer.getBounds(),{padding:[60,60],maxZoom:17});
     } else {
-      document.getElementById('notfound-status').textContent='✗ No encontrado con ese nombre, prueba otro';
+      document.getElementById('notfound-status').textContent='✗ No encontrado, prueba otro nombre';
     }
-  }catch(e){
-    document.getElementById('notfound-status').textContent='Error de conexión, inténtalo de nuevo';
-  }
+  }catch(e){ document.getElementById('notfound-status').textContent='Error de red, inténtalo de nuevo'; }
 }
 
 function saltarCalle(){
@@ -435,82 +424,110 @@ function saltarCalle(){
   document.getElementById('feedback').textContent='⚠ Saltada';
   respondido=true;
   document.querySelectorAll('.opcion').forEach(b=>b.disabled=true);
-  S.notfoundSkip.push(actual.n);
-  saveStorage('quiz_notfound',S.notfoundSkip);
 }
 
-// ---- GESTIÓN ----
+// === CARGAR CALLES OSM ===
+async function cargarCallesOSM(){
+  const btn=document.querySelector('button[onclick="cargarCallesOSM()"]');
+  btn.textContent='⏳ Cargando...';btn.disabled=true;
+  document.getElementById('loading-overlay').textContent='⬇ Descargando calles de la zona...';
+  document.getElementById('loading-overlay').classList.add('show');
+  try{
+    const query=`[out:json][timeout:60];way(poly:"${NORTE_POLY_STR}")[highway][name];out tags;`;
+    const r=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+    const d=await r.json();
+    const nombres=new Set();
+    for(const el of d.elements||[]){
+      if(el.tags&&el.tags.name) nombres.add(el.tags.name);
+    }
+    // También poly 2
+    const query2=`[out:json][timeout:60];way(poly:"${NORTE_POLY_STR2}")[highway][name];out tags;`;
+    const r2=await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query2)}`);
+    const d2=await r2.json();
+    for(const el of d2.elements||[]){
+      if(el.tags&&el.tags.name) nombres.add(el.tags.name);
+    }
+    // Filter out already known
+    const conocidas=new Set([...CALLES_BASE.map(c=>getOsmName(c.n)),...S.extra.map(c=>getOsmName(c.n))]);
+    const nuevas=[...nombres].filter(n=>!conocidas.has(n)&&!S.osmCalles.includes(n));
+    S.osmCalles=[...new Set([...S.osmCalles,...nuevas])];
+    saveS('qv_osmcalles',S.osmCalles);
+    document.getElementById('loading-overlay').classList.remove('show');
+    btn.textContent=`✓ ${S.osmCalles.length} calles OSM`;
+    btn.disabled=false;
+    document.getElementById('btn-osm').style.display='inline-block';
+    buildCola();
+    alert(`✓ Se han cargado ${nuevas.length} calles nuevas de OSM (${S.osmCalles.length} total)`);
+  }catch(e){
+    document.getElementById('loading-overlay').classList.remove('show');
+    btn.textContent='⬇ Cargar calles OSM';btn.disabled=false;
+    alert('Error al cargar calles. Comprueba la conexión.');
+  }
+}
+
+// === PENDIENTES ===
+function abrirPendientes(){
+  const all=getAllCalles().filter(c=>filtroTipo==='all'||c.t===filtroTipo);
+  const pendientes=all.filter(c=>!S.respondidas[c.n]);
+  const respondidas_ok=all.filter(c=>S.respondidas[c.n]==='ok');
+  const respondidas_ko=all.filter(c=>S.respondidas[c.n]==='ko');
+  const div=document.getElementById('pending-lista');
+  div.innerHTML=`<p style="font-size:11px;color:#666;margin-bottom:8px">Total: ${all.length} | ✓ ${respondidas_ok.length} | ✗ ${respondidas_ko.length} | ⏳ ${pendientes.length}</p>`;
+  for(const c of all){
+    const st=S.respondidas[c.n];
+    const cls=st==='ok'?'ok':st==='ko'?'ko':'pending';
+    div.innerHTML+=`<div class="pend-item"><span class="pend-dot ${cls}"></span><span>${c.n}</span><span style="font-size:10px;color:#999;margin-left:auto">${c.t}</span></div>`;
+  }
+  document.getElementById('pending-panel').classList.add('show');
+}
+
+// === HISTORIAL ===
+function abrirHistorial(){
+  const sorted=Object.entries(S.fallos).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('historial-lista').innerHTML=!sorted.length
+    ?'<p style="color:#888;font-size:12px">Sin fallos aún 🎉</p>'
+    :sorted.map(([n,c])=>`<div class="hist-item"><span>${n}</span><span class="hist-cnt">${c}x</span></div>`).join('');
+  document.getElementById('historial-modal').classList.add('show');
+}
+
+// === GESTIÓN ===
 function añadirCalle(){
   const nombre=document.getElementById('g-nombre').value.trim();
   const tipo=document.getElementById('g-tipo').value;
   const osm=document.getElementById('g-osm').value.trim();
   if(!nombre||!osm){alert('Rellena nombre y nombre OSM');return;}
-  S.extraCalles.push({n:nombre,t:tipo});
-  S.extraOsm[nombre]=osm;
-  saveStorage('quiz_extra_calles',S.extraCalles);
-  saveStorage('quiz_extra_osm',S.extraOsm);
+  S.extra.push({n:nombre,t:tipo}); S.osm[nombre]=osm;
+  saveS('qv_extra',S.extra); saveS('qv_osm',S.osm);
   document.getElementById('g-nombre').value='';
   document.getElementById('g-osm').value='';
-  renderGestionLista();
-  buildCola();
+  renderGestion(); buildCola();
   alert(`✓ "${nombre}" añadida`);
 }
 
 function eliminarExtra(nombre){
-  S.extraCalles=S.extraCalles.filter(c=>c.n!==nombre);
-  delete S.extraOsm[nombre];
-  saveStorage('quiz_extra_calles',S.extraCalles);
-  saveStorage('quiz_extra_osm',S.extraOsm);
-  renderGestionLista();
-  buildCola();
-}
-
-function renderGestionLista(){
-  const div=document.getElementById('gestion-lista');
-  if(!S.extraCalles.length){div.innerHTML='<p style="color:#888;font-size:12px">Sin calles añadidas</p>';return;}
-  div.innerHTML=S.extraCalles.map(c=>`
-    <div class="calle-item">
-      <span><b>${c.n}</b> <span class="osm">→ ${S.extraOsm[c.n]||'?'}</span></span>
-      <button class="calle-del-btn" onclick="eliminarExtra('${c.n}')">✕</button>
-    </div>`).join('');
-
-  const div2=document.getElementById('gestion-notfound');
-  const fixed=Object.entries(S.extraOsm).filter(([k])=>!S.extraCalles.find(c=>c.n===k));
-  if(!fixed.length){div2.innerHTML='<p style="color:#888;font-size:12px">Sin correcciones guardadas</p>';return;}
-  div2.innerHTML=fixed.map(([k,v])=>`
-    <div class="calle-item">
-      <span><b>${k}</b> <span class="osm">→ ${v}</span></span>
-      <button class="calle-del-btn" onclick="eliminarOsm('${k}')">✕</button>
-    </div>`).join('');
+  S.extra=S.extra.filter(c=>c.n!==nombre);
+  delete S.osm[nombre]; delete geoCache[nombre];
+  saveS('qv_extra',S.extra); saveS('qv_osm',S.osm);
+  renderGestion(); buildCola();
 }
 
 function eliminarOsm(nombre){
-  delete S.extraOsm[nombre];
-  delete geoCache[nombre];
-  saveStorage('quiz_extra_osm',S.extraOsm);
-  renderGestionLista();
+  delete S.osm[nombre]; delete geoCache[nombre];
+  saveS('qv_osm',S.osm); renderGestion();
 }
 
-function abrirGestion(){
-  renderGestionLista();
-  document.getElementById('gestion-panel').classList.add('show');
+function renderGestion(){
+  document.getElementById('g-count').textContent=S.extra.length;
+  const d1=document.getElementById('gestion-lista');
+  d1.innerHTML=!S.extra.length?'<p style="color:#888;font-size:11px">Sin calles añadidas</p>'
+    :S.extra.map(c=>`<div class="calle-item"><span><b>${c.n}</b> <span class="osm">→ ${S.osm[c.n]||'?'}</span></span><button class="calle-del-btn" onclick="eliminarExtra('${c.n.replace(/'/g,"\'")}')">✕</button></div>`).join('');
+  const fixed=Object.entries(S.osm).filter(([k])=>!S.extra.find(c=>c.n===k));
+  const d2=document.getElementById('gestion-notfound');
+  d2.innerHTML=!fixed.length?'<p style="color:#888;font-size:11px">Sin correcciones</p>'
+    :fixed.map(([k,v])=>`<div class="calle-item"><span><b>${k}</b> <span class="osm">→ ${v}</span></span><button class="calle-del-btn" onclick="eliminarOsm('${k.replace(/'/g,"\'")}')">✕</button></div>`).join('');
 }
 
-// ---- HISTORIAL ----
-function abrirHistorial(){
-  const lista=document.getElementById('historial-lista');
-  const sorted=Object.entries(fallos).sort((a,b)=>b[1]-a[1]);
-  lista.innerHTML=!sorted.length
-    ?'<p style="color:#888;font-size:13px">Sin fallos aún 🎉</p>'
-    :sorted.map(([n,c])=>`<div class="hist-item"><span>${n}</span><span class="hist-cnt">${c}x</span></div>`).join('');
-  document.getElementById('historial-modal').classList.add('show');
-}
-
-// ---- MODALS ----
-function cerrarModal(id,e){
-  if(!e||e.target===document.getElementById(id))
-    document.getElementById(id).classList.remove('show');
-}
+function abrirGestion(){ renderGestion(); document.getElementById('gestion-panel').classList.add('show'); }
 
 buildCola();
 siguiente();

@@ -326,7 +326,7 @@ function addPermanentLabel(nombre,coords,correcto){
   permanentLayers.push(L.polyline(coords,{color,weight:3,opacity:.5}).addTo(map));
   permanentLayers.push(L.marker(center,{icon:L.divIcon({
     className:'',
-    html:`<div style="background:${color};color:#fff;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:500;white-space:nowrap;opacity:.85">${nombre}</div>`,
+    html:`<div style="background:#fff;color:#1a1a1a;border:2px solid ${color};padding:1px 5px;border-radius:3px;font-size:9px;font-weight:600;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.2)">${nombre}</div>`,
     iconAnchor:[0,8]
   })}).addTo(map));
 }
